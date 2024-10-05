@@ -34,7 +34,7 @@ class Program
 		IEnumerable<Student> result = connection.Query<Student>("SELECT * FROM Students");
 		//List<Person> persons = result.ToList(); // nödvändig om vi vill manipulera den som en Lista
 
-		// Loopa igenom result, result är inte kopplad mot databasen utan finns nu i RAM
+		// Loopa igenom result, result är inte kopplad mot databasen utan finns nu i RAM. Lokalt
 		foreach (Student s in result)
 		{
 			Console.WriteLine($"Id: {s.Id}, Namn: {s.Name}, Email:	{s.Email} on {s.DateOfBirth}");

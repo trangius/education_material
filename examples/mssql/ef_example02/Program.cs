@@ -96,7 +96,7 @@ class Program
 		};
 
 		using var context = new StudentContext();
-		context.Students.Add(newStudent); // Denna lägger till studenten i RAM-minnet
+		context.Students.Add(newStudent); // Denna lägger till studenten i RAM-minnet. Lokalt. Ej i databasen än.
 		
 		context.SaveChanges(); // Denna skriver ändringarna till databasen
 		// Bakom kulisserna översätter Entity Framework denna operation till SQL:
@@ -126,12 +126,12 @@ class Program
 			Console.WriteLine("Ange nytt namn (lämna tomt för att behålla nuvarande):");
 			string name = Console.ReadLine();
 			if (!string.IsNullOrEmpty(name))
-				studentToUpdate.Name = name; // denna ändrar i RAM
+				studentToUpdate.Name = name; // denna ändrar i RAM. Lokalt. ej i databasen än.
 
 			Console.WriteLine("Ange ny e-post (lämna tomt för att behålla nuvarande):");
 			string email = Console.ReadLine();
 			if (!string.IsNullOrEmpty(email))
-				studentToUpdate.Email = email; // denna ändrar i RAM
+				studentToUpdate.Email = email // denna ändrar i RAM. Lokalt. ej i databasen än.; // denna ändrar i RAM
 
 			Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd, lämna tomt för att behålla nuvarande):");
 			string dobInput = Console.ReadLine();

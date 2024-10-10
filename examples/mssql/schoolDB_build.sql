@@ -16,7 +16,7 @@ CREATE TABLE Teachers (
 -- Skapa Courses-tabellen med auto-inkrement på Id
 CREATE TABLE Courses (
     Id INT IDENTITY(1,1) PRIMARY KEY,   -- Auto-inkrementerande Id
-    CourseName VARCHAR(100),            -- Namnet på kursen
+    Name VARCHAR(100),            -- Namnet på kursen
     Credits INT,                        -- Antal poäng för kursen
     TeacherId INT                       -- Lärarens Id som håller kursen
 );
@@ -102,7 +102,7 @@ INSERT INTO Teachers (Name, Email) VALUES
 ('Olof Johansson', 'olof.johansson@example.com');
 
 -- Fyll på Courses-tabellen med kurser
-INSERT INTO Courses (CourseName, Credits, TeacherId) VALUES
+INSERT INTO Courses (Name, Credits, TeacherId) VALUES
 ('OOP med C# del 1', 7.5, 1),
 ('Databaser SQL', 7.5, 2),
 ('Testning', 7.5, 3),

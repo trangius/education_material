@@ -95,8 +95,8 @@ INSERT INTO Students (Name, Email, DateOfBirth) VALUES
 
 -- Fyll på Teachers-tabellen med 5 lärare
 INSERT INTO Teachers (Name, Email) VALUES
-('Krister Trangius', 'krister@example.com'),
 ('Gustav Bodell', 'gustav@example.com'),
+('Krister Trangius', 'krister@example.com'),
 ('Karin Andersson', 'karin.andersson@example.com'),
 ('Lisa Nilsson', 'lisa.nilsson@example.com'),
 ('Olof Johansson', 'olof.johansson@example.com');
@@ -105,7 +105,7 @@ INSERT INTO Teachers (Name, Email) VALUES
 INSERT INTO Courses (Name, Credits, TeacherId) VALUES
 ('OOP med C# del 1', 7.5, 1),
 ('Databaser SQL', 7.5, 2),
-('Testning', 7.5, 3),
+('Testning', 7.5, 1),
 ('OOP med C# del 2', 7.5, 1),
 ('Webbdesign', 7.5, 4),
 ('LIA', 15, 5),

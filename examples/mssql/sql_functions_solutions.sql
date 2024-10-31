@@ -22,23 +22,23 @@ WHERE Students.Id = 1; -- Ändra "1" till den specifika studentens Id
 
 -- 4. Hämta medelbetyget för alla kurser
 -- Detta query beräknar medelvärdet av betygen för alla kurser.
-SELECT Courses.CourseName, AVG(CAST(Enrollments.Grade AS FLOAT)) AS AverageGrade
+SELECT Courses.Name, AVG(CAST(Enrollments.Grade AS FLOAT)) AS AverageGrade
 FROM Courses
 JOIN Enrollments ON Courses.Id = Enrollments.CourseId
-GROUP BY Courses.Id, Courses.CourseName;
+GROUP BY Courses.Id, Courses.Name;
 
 -- 5. Hämta vilken kurs som har högsta medelbetyget
 -- Detta query hämtar den kurs som har högsta genomsnittliga betyget.
-SELECT TOP 1 Courses.CourseName, AVG(CAST(Enrollments.Grade AS FLOAT)) AS AverageGrade
+SELECT TOP 1 Courses.Name, AVG(CAST(Enrollments.Grade AS FLOAT)) AS AverageGrade
 FROM Courses
 JOIN Enrollments ON Courses.Id = Enrollments.CourseId
-GROUP BY Courses.Id, Courses.CourseName
+GROUP BY Courses.Id, Courses.Name
 ORDER BY AverageGrade DESC;
 
 -- 6. Hämta studenter som har fått underkänt i någon kurs (deras namn och kurs)
 -- skolan vill veta vilka som behöver extra stöd
 -- Detta query hämtar alla studenter som har fått det betyget.
-SELECT Students.Name, Courses.CourseName
+SELECT Students.Name, Courses.Name
 FROM Students
 JOIN Enrollments ON Students.Id = Enrollments.StudentId
 JOIN Courses ON Enrollments.CourseId = Courses.Id
@@ -54,10 +54,10 @@ HAVING MIN(Enrollments.Grade) = 2; -- Ändra 2 om ett annat maxbetyg gäller
 
 -- 8. Hämta antalet studenter i varje kurs
 -- Detta query räknar hur många studenter som är registrerade i varje kurs.
-SELECT Courses.CourseName, COUNT(Enrollments.StudentId) AS TotalStudents
+SELECT Courses.Name, COUNT(Enrollments.StudentId) AS TotalStudents
 FROM Courses
 JOIN Enrollments ON Courses.Id = Enrollments.CourseId
-GROUP BY Courses.Id, Courses.CourseName;
+GROUP BY Courses.Id, Courses.Name;
 
 -- 9. Hämta en lista med alla studenter och deras respektive medelsnittsbetyg,
 -- sortera på snittet med med högst längst upp

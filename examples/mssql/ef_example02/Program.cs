@@ -11,11 +11,14 @@ public class Student
 }
 
 // DbContext för Entity Framework, representerar en session med databasen
-public class StudentContext : DbContext
+public class SchoolContext : DbContext
 {
 	// Objekt av klassen. Representerar tabellen 'Students' i databasen.
 	// Via denna kan vi sedan hämta ut, lägga till och ta bort data i databasen
 	public DbSet<Student> Students { get; set; }
+    // lägg till fler klasser och DbSet för att representera fler tabeller i databasen:
+	// public DbSet<Student> Teachers { get; set; }
+    // osv...
 
 	// Konfigurerar databaskopplingen
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -95,7 +98,7 @@ class Program
 			DateOfBirth = dateOfBirth
 		};
 
-		using var context = new StudentContext();
+		using var context = new SchoolContext();
 		context.Students.Add(newStudent); // Denna lägger till studenten i RAM-minnet. Lokalt. Ej i databasen än.
 		
 		context.SaveChanges(); // Denna skriver ändringarna till databasen
@@ -117,7 +120,7 @@ class Program
 			Console.WriteLine("Ogiltigt ID, försök igen:");
 		}
 
-		using var context = new StudentContext();
+		using var context = new SchoolContext();
 		// Hämtar studenten från databasen
 		var studentToUpdate = context.Students.FirstOrDefault(s => s.Id == id);
 		if (studentToUpdate != null)
@@ -131,7 +134,7 @@ class Program
 			Console.WriteLine("Ange ny e-post (lämna tomt för att behålla nuvarande):");
 			string email = Console.ReadLine();
 			if (!string.IsNullOrEmpty(email))
-				studentToUpdate.Email = email // denna ändrar i RAM. Lokalt. ej i databasen än.; // denna ändrar i RAM
+				studentToUpdate.Email = email; // denna ändrar i RAM. Lokalt. ej i databasen än.; // denna ändrar i RAM
 
 			Console.WriteLine("Ange nytt födelsedatum (åååå-mm-dd, lämna tomt för att behålla nuvarande):");
 			string dobInput = Console.ReadLine();
@@ -166,7 +169,7 @@ class Program
 	static void PrintAllStudents()
 	{
 		// Skapar en instans av StudentContext för att interagera med databasen
-		using var context = new StudentContext();
+		using var context = new SchoolContext();
 		// Hämta alla studenter från databasen som en lista
 		// Bakom kulisserna översätter Entity Framework denna fråga till SQL:
 		//		SELECT s.Id, s.Name, s.Email, s.DateOfBirth

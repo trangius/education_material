@@ -1,0 +1,58 @@
+[
+  {
+    "Title": "Den Gudomliga Komedin",
+    "Author": "Dante Alighieri",
+    "Year": 2006,
+    "Publisher": "Natur \u0026 Kultur",
+    "Genre": 2,
+    "Quality": "Som ny"
+  },
+  {
+    "Title": "The Linux Command Line",
+    "Author": "William E. Shotts Jr.",
+    "Year": 2012,
+    "Publisher": "No Starch Press",
+    "Genre": 5,
+    "Quality": "N\u00E4ra nyskick. Men en stor kaffefl\u00E4ck p\u00E5 baksidan."
+  },
+  {
+    "Title": "The Art of Computer Programming",
+    "Author": "Donald E. Knuth",
+    "Year": 1968,
+    "Publisher": "Addison-Wesley",
+    "Genre": 5,
+    "Quality": "V\u00E4ldigt trasigt exemplar. Den har l\u00E4sts hundra g\u00E5nger.\n\nFlera sidor verkar ha ramlat ut men det viktigaste om programmering finns \u00E4nd\u00E5 kvar."
+  },
+  {
+    "Title": "The C Programming Language",
+    "Author": "Brian W. Kernighan \u0026 Dennis M. Ritchie",
+    "Year": 1978,
+    "Publisher": "Prentice Hall",
+    "Genre": 5,
+    "Quality": "Begagnad"
+  },
+  {
+    "Title": "Br\u00F6derna Lejonhj\u00E4rta",
+    "Author": "Astrid Lindgren",
+    "Year": 1976,
+    "Publisher": "Raben \u0026 Sj\u00F6gren",
+    "Genre": 6,
+    "Quality": "praktexemplar!"
+  },
+  {
+    "Title": "Mio min Mio",
+    "Author": "Astrid lindgren",
+    "Year": 1986,
+    "Publisher": "Bonniers",
+    "Genre": 6,
+    "Quality": "v\u00E4ll\u00E4st"
+  },
+  {
+    "Title": "Brott och Straff",
+    "Author": "Fjodor Dostrojevsky",
+    "Year": 1897,
+    "Publisher": "ok\u00E4nd",
+    "Genre": 3,
+    "Quality": "repig"
+  }
+]

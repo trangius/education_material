@@ -65,65 +65,65 @@
         }
     }
 
-	static void PrintAllStudents()
-	{
-		// Skapar en instans av StudentContext för att interagera med databasen
-		// Hämta alla studenter från databasen som en lista
-		using var context = new SchoolContext();
-		IEnumerable<Student> students = context.Students;
-		        
+    static void PrintAllStudents()
+    {
+        // Skapar en instans av StudentContext för att interagera med databasen
+        // Hämta alla studenter från databasen som en lista
+        using var context = new SchoolContext();
+        IEnumerable<Student> students = context.Students;
+                
 
-		// Itererar över varje student i listan (som nyss hämtades ur databasen) och skriver ut deras information
-		foreach (var student in students)
-		{
-			Console.WriteLine(
-				$"Id: {student.Id}, " +
-				$"Namn: {student.Name}, " +
-				$"E-post: {student.Email}, " +
-				$"Född: {student.DateOfBirth.ToShortDateString()}"
-			);
-		}
-	}
+        // Itererar över varje student i listan (som nyss hämtades ur databasen) och skriver ut deras information
+        foreach (var student in students)
+        {
+            Console.WriteLine(
+                $"Id: {student.Id}, " +
+                $"Namn: {student.Name}, " +
+                $"E-post: {student.Email}, " +
+                $"Född: {student.DateOfBirth.ToShortDateString()}"
+            );
+        }
+    }
 
-	static void InsertStudent()
-	{
-		// Frågar användaren om information för den nya studenten
-		Console.WriteLine("Ange studentens namn:");
-		string name = CHelp.ReadString();
+    static void InsertStudent()
+    {
+        // Frågar användaren om information för den nya studenten
+        Console.WriteLine("Ange studentens namn:");
+        string name = CHelp.ReadString();
 
-		Console.WriteLine("Ange studentens e-post:");
-		string email = CHelp.ReadString();
+        Console.WriteLine("Ange studentens e-post:");
+        string email = CHelp.ReadString();
 
-		Console.WriteLine("Ange studentens födelsedatum (åååå-mm-dd):");
-		DateTime dateOfBirth = CHelp.ReadDate();
+        Console.WriteLine("Ange studentens födelsedatum (åååå-mm-dd):");
+        DateTime dateOfBirth = CHelp.ReadDate();
 
-		// Skapar en ny student med användarens inmatning
-		var newStudent = new Student
-		{
-			Name = name,
-			Email = email,
-			DateOfBirth = dateOfBirth
-		};
+        // Skapar en ny student med användarens inmatning
+        var newStudent = new Student
+        {
+            Name = name,
+            Email = email,
+            DateOfBirth = dateOfBirth
+        };
 
-		using var context = new SchoolContext();
-		context.Students.Add(newStudent); // Denna lägger till studenten i RAM-minnet. Lokalt. Ej i databasen än.
-		context.SaveChanges(); // Denna skriver ändringarna till databasen
-		Console.WriteLine("Studenten har lagts till i databasen.");
-	}
+        using var context = new SchoolContext();
+        context.Students.Add(newStudent); // Denna lägger till studenten i RAM-minnet. Lokalt. Ej i databasen än.
+        context.SaveChanges(); // Denna skriver ändringarna till databasen
+        Console.WriteLine("Studenten har lagts till i databasen.");
+    }
 
-	static void UpdateStudent()
-	{
-		// Frågar användaren om studentens ID att uppdatera
-		Console.WriteLine("Ange ID för den student du vill uppdatera:");
-		int id = CHelp.ReadInt();
+    static void UpdateStudent()
+    {
+        // Frågar användaren om studentens ID att uppdatera
+        Console.WriteLine("Ange ID för den student du vill uppdatera:");
+        int id = CHelp.ReadInt();
 
-		using var context = new SchoolContext();
+        using var context = new SchoolContext();
 
-		// Hämtar studenten från databasen
+        // Hämtar studenten från databasen
         Student studentToUpdate = context.Students.Find(id);
-		if (studentToUpdate == null)
-		{
-			Console.WriteLine("Ingen student med angivet ID hittades.");
+        if (studentToUpdate == null)
+        {
+            Console.WriteLine("Ingen student med angivet ID hittades.");
             return;
         }
  
@@ -139,7 +139,7 @@
         // Sparar ändringarna i databasen
         context.SaveChanges(); // Denna sparar ändringarna i databasen
         Console.WriteLine("Studenten har uppdaterats.");
-	}
+    }
 
     public static void PrintCourseAllInfo()
     {

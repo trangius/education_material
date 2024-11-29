@@ -21,6 +21,8 @@ public class Course
     public string Name { get; set; }
     public int Credits { get; set; }  // Antal poäng
     public int TeacherId { get; set; }
+    
+    public Teacher Teacher { get; set; } // Navigationsegenskap
 }
 
 

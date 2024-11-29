@@ -1,4 +1,6 @@
-﻿class Program
+﻿using Microsoft.EntityFrameworkCore;
+
+class Program
 {
     static void Main(string[] args)
     {
@@ -15,7 +17,7 @@
             Console.WriteLine("5. Visa alla kurser för en lärare");
             Console.WriteLine("6. Lista alla kurser (ID och namn)");
             Console.WriteLine("7. Lista alla kurser (endast namn)");
-            Console.WriteLine("8. Visa fullständig information om alla kurser");
+            Console.WriteLine("8. Visa fullständig information om alla kurser (med join)");
             Console.WriteLine("9. Avsluta");
 
             // Läs in användarens val
@@ -144,11 +146,13 @@
     public static void PrintCourseAllInfo()
     {
         using var context = new SchoolContext();
-        IEnumerable<Course> courses = context.Courses.ToList();
+        List<Course> courses = context.Courses
+        .Include(c => c.Teacher) // Hämtar lärarens data med kursen med JOIN
+        .ToList();
 
         foreach (var course in courses)
         {
-            Console.WriteLine($"ID: {course.Id}, Name: {course.Name}, Credits: {course.Credits}, TeacherId: {course.TeacherId}");
+            Console.WriteLine($"ID: {course.Id}, Name: {course.Name}, Credits: {course.Credits}, Teacher(Id): {course.Teacher.Name}({course.TeacherId})");
         }
     }
 

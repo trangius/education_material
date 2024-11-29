@@ -17,7 +17,7 @@ public class SchoolContext : DbContext
 	// Via denna kan vi sedan hämta ut, lägga till och ta bort data i databasen
 	public DbSet<Student> Students { get; set; }
     // lägg till fler klasser och DbSet för att representera fler tabeller i databasen:
-	// public DbSet<Student> Teachers { get; set; }
+	// public DbSet<Teacher> Teachers { get; set; }
     // osv...
 
 	// Konfigurerar databaskopplingen

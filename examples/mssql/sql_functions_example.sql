@@ -13,7 +13,7 @@ GROUP BY Students.Name;
 
 
 -- AVG(): Beräknar medelvärdet av en kolumns värden
-SELECT Students.Name, AVG(Courses.Credits) AS AverageCredits
+SELECT Students.Name, AVG(CAST(Enrollments.Grade AS float)) AS AverageGrade
 FROM Students
 JOIN Enrollments ON Students.Id = Enrollments.StudentId
 JOIN Courses ON Enrollments.CourseId = Courses.Id

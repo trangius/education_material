@@ -20,7 +20,13 @@ class Program
             Console.WriteLine($"Name: {person.FirstName} {person.LastName}, BirthYear: {person.BirthYear}");
         }
 
+        // som frågesyntax:
+        // var sortedPeople = from person in people
+        //                    orderby person.LastName
+        //                    select person;
         // Sortera listan baserat på LastName
+        
+        // som metodsyntax:
         var sortedPeople = people.OrderBy(person => person.LastName);
 
         Console.WriteLine("-----------------------");

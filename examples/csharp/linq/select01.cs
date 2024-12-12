@@ -15,11 +15,21 @@ class Program
         };
 
         // Projektera till en lista med fullständiga namn och ålder
+        // som metodsyntax:
         var projectedPeople = people.Select(person => new
         {
             FullName = $"{person.FirstName} {person.LastName}",
             Age = DateTime.Now.Year - person.BirthYear
         });
+
+        // som frågesyntax:
+        // var projectedPeople =
+        //     from person in people
+        //     select new
+        //     {
+        //         FullName = $"{person.FirstName} {person.LastName}",
+        //         Age = DateTime.Now.Year - person.BirthYear
+        //     };
 
         // Skriv ut resultaten
         foreach (var person in projectedPeople)

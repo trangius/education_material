@@ -73,7 +73,6 @@ class Program
         // Hämta alla studenter från databasen som en lista
         using var context = new SchoolContext();
         IEnumerable<Student> students = context.Students;
-                
 
         // Itererar över varje student i listan (som nyss hämtades ur databasen) och skriver ut deras information
         foreach (var student in students)
@@ -146,9 +145,12 @@ class Program
     public static void PrintCourseAllInfo()
     {
         using var context = new SchoolContext();
+        // som metodsyntax:
         List<Course> courses = context.Courses
-        .Include(c => c.Teacher) // Hämtar lärarens data med kursen med JOIN
+        .Include(c => c.Teacher) // Hämtar lärarens data med kursen med JOIN. Include är inte en del av LINQ utan en del av Entity Framework
         .ToList();
+        // som frågesyntax:
+        // List<Course> courses = (from c in context.Courses select c).Include(c => c.Teacher).ToList();
 
         foreach (var course in courses)
         {
@@ -159,8 +161,10 @@ class Program
     public static void PrintCoursesNameAndId()
     {
         using var context = new SchoolContext();
-        //var courses = context.Courses.Select(c => new { c.Id, c.Name }); // skapar en anonym typ med Id och Name
-        var courses = from c in context.Courses select new { c.Id, c.Name };
+        // som metodsyntax:
+        var courses = context.Courses.Select(c => new { c.Id, c.Name }); // skapar en anonym typ med Id och Name
+        // som frågesyntax 
+        // var courses = from c in context.Courses select new { c.Id, c.Name };
         foreach (var course in courses)
         {
             Console.WriteLine($"ID: {course.Id}, Name: {course.Name}");
@@ -170,8 +174,10 @@ class Program
     public static void PrintCoursesName()
     {
         using var context = new SchoolContext();
-        // IEnumerable<string> courseNames = context.Courses.Select(c => c.Name); // skapar en lista med namn, bara string
-        IEnumerable<string> courseNames = from c in context.Courses select c.Name; // skapar en lista med namn, bara string
+        // som metodsyntax:
+        IEnumerable<string> courseNames = context.Courses.Select(c => c.Name); // skapar en lista med namn, bara string
+        // som frågesyntax:
+        // IEnumerable<string> courseNames = from c in context.Courses select c.Name; // skapar en lista med namn, bara string
 
         foreach (var name in courseNames)
         {
@@ -183,17 +189,19 @@ class Program
     static void PrintAllCoursesForTeacher(int teacherId)
     {
         using var context = new SchoolContext();
-        // var coursesForTeacher = context.Courses
-        //     .Where(c => c.TeacherId == teacherId)
-        //     .Select(c => new
-        //     {
-        //          CourseName = c.Name,
-        //          CourseId = c.Id
-        //     });
 
-        var coursesForTeacher = from c in context.Courses
-            where c.TeacherId == teacherId
-            select new {CourseName = c.Name, CourseId = c.Id};
+        // som metodsyntax:
+        var coursesForTeacher = context.Courses
+            .Where(c => c.TeacherId == teacherId)
+            .Select(c => new
+            {
+                 CourseName = c.Name,
+                 CourseId = c.Id
+            });
+        // som frågesyntax:
+        // var coursesForTeacher = from c in context.Courses
+        //     where c.TeacherId == teacherId
+        //     select new {CourseName = c.Name, CourseId = c.Id};
 
         foreach (var course in coursesForTeacher)
         {
@@ -204,21 +212,23 @@ class Program
     static void PrintAllStudentsInCourse(int courseId)
     {
         using var context = new SchoolContext();
-        //     var studentsInCourse = context.Enrollments
-        // .Where(e => e.CourseId == courseId)
-        // .Select(e => new
-        // {
-        //     StudentName = e.Student.Name,
-        //     Grade = e.Grade
-        // });
-
-        var studentsInCourse = from e in context.Enrollments
-        where e.CourseId == courseId
-        select new
+        // som metodsyntax:
+        var studentsInCourse = context.Enrollments
+        .Where(e => e.CourseId == courseId)
+        .Select(e => new
         {
             StudentName = e.Student.Name,
             Grade = e.Grade
-        };
+        });
+
+        // som frågesyntax:
+        // var studentsInCourse = from e in context.Enrollments
+        // where e.CourseId == courseId
+        // select new
+        // {
+        //     StudentName = e.Student.Name,
+        //     Grade = e.Grade
+        // };
 
         foreach(var item in studentsInCourse)
         {

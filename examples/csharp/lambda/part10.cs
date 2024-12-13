@@ -36,6 +36,7 @@ class Program
         };
 
         // Sök efter alla böcker skrivna av Tolkien med hjälp av LINQ och lambda
+        // jämför med part07.cs
         var tolkienBooks = FilterBooks(books, b => b.Author == "J.R.R. Tolkien");
 
         // Skriv ut böckerna av Tolkien

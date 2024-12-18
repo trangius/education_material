@@ -15,9 +15,9 @@ ALTER TABLE Enrollments
 DROP CONSTRAINT PK__Enrollme__7F6877FB11E8DC2E; -- byt ut här till vad du får ut av selecten ovan
 
 -- ta bort kolumnen för id
-ALTER TABLE Enrollments DROP COLUMN EnrollmentID;
+ALTER TABLE Enrollments DROP COLUMN Id;
 
--- gör så de kolumner som ska bli id inte är nullbara
+-- skapa not null constraints på id-kolumnerna
 ALTER TABLE Enrollments
 ALTER COLUMN StudentId INT NOT NULL;
 

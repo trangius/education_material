@@ -13,7 +13,7 @@ CREATE TABLE Product
     Quantity INT NOT NULL -- lagerstatus
 );
 
-CREATE TABLE Order -- order som kunderna lägger
+CREATE TABLE IncomingOrder -- order som kunderna lägger
 (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
@@ -28,8 +28,8 @@ CREATE TABLE OrderDetail -- rader i en order
     ProductId INT NOT NULL,
     Quantity INT NOT NULL,
     PRIMARY KEY (OrderId, ProductId), -- Sammansatt primärnyckel
-    FOREIGN KEY (OrderId) REFERENCES Orders(Id),
-    FOREIGN KEY (ProductId) REFERENCES Products(Id)
+    FOREIGN KEY (OrderId) REFERENCES IncomingOrder(Id),
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
 );
 
 CREATE TABLE OutgoingOrder -- för företaget ska kunna skapa automatiska ordrar till underleverantörer
@@ -38,7 +38,7 @@ CREATE TABLE OutgoingOrder -- för företaget ska kunna skapa automatiska ordrar
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
     ProductId INT NOT NULL,
     IsPlaced BIT DEFAULT 0,
-    FOREIGN KEY (ProductId) REFERENCES Products(Id)
+    FOREIGN KEY (ProductId) REFERENCES Product(Id)
 );
 
 GO -- batchseparator, körs av klienten och säkerställer att kommandona ovan faktiskt har körts. EJ en del av SQL

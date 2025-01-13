@@ -19,7 +19,7 @@ CREATE TABLE Order -- order som kunderna lägger
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
     CustomerId INT NOT NULL,
     IsSent BIT DEFAULT 0,
-    FOREIGN KEY (UserId) REFERENCES Users(Id)
+    FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
 );
 
 CREATE TABLE OrderDetail -- rader i en order

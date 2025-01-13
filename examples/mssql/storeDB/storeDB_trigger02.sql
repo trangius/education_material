@@ -3,7 +3,7 @@
 DROP TRIGGER IF EXISTS UpdateProductQuantity; -- ta bort den ovan först
 
 CREATE TRIGGER UpdateProductQuantity
-ON OrderDetails
+ON OrderDetail
 AFTER INSERT
 AS
 BEGIN
@@ -12,13 +12,13 @@ BEGIN
     -- Uppdatera quantity i Products-tabellen baserat på insatta rader
     UPDATE p
     SET p.quantity = p.quantity - i.quantity
-    FROM Products p
+    FROM Product p
     INNER JOIN inserted i
     ON p.id = i.ProductId;
     
     -- Skapa en utgående order till underleverantör om det sjunker under 5
-    INSERT INTO OutgoingOrders (OrderDate, ProductId)
+    INSERT INTO OutgoingOrder (OrderDate, ProductId)
     SELECT GETDATE(), P.id
-    FROM Products P
+    FROM Product P
     WHERE P.quantity < 5;
 END

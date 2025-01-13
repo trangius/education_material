@@ -1,6 +1,6 @@
 -- Skapar en trigger som uppdaterar quantity i Products-tabellen baserat på insatta rader i OrderDetails-tabellen.
 CREATE TRIGGER UpdateProductQuantity
-ON OrderDetails
+ON OrderDetail
 AFTER INSERT
 AS
 BEGIN
@@ -9,7 +9,7 @@ BEGIN
     -- Uppdatera quantity i Products-tabellen baserat på insatta rader
     UPDATE p
     SET p.quantity = p.quantity - i.quantity
-    FROM Products p
+    FROM Product p
     INNER JOIN inserted i
     ON p.id = i.ProductId;
 END

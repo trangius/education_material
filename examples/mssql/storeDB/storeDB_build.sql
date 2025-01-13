@@ -14,8 +14,7 @@ CREATE TABLE Product
 );
 
 CREATE TABLE IncomingOrder -- order som kunderna lägger
-(
-    Id INT IDENTITY(1,1) PRIMARY KEY,
+(    Id INT IDENTITY(1,1) PRIMARY KEY,
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
     CustomerId INT NOT NULL,
     IsSent BIT DEFAULT 0,
@@ -24,11 +23,11 @@ CREATE TABLE IncomingOrder -- order som kunderna lägger
 
 CREATE TABLE OrderDetail -- rader i en order
 (
-    OrderId INT NOT NULL,
+    IncomingOrderId INT NOT NULL,
     ProductId INT NOT NULL,
     Quantity INT NOT NULL,
-    PRIMARY KEY (OrderId, ProductId), -- Sammansatt primärnyckel
-    FOREIGN KEY (OrderId) REFERENCES IncomingOrder(Id),
+    PRIMARY KEY (IncomingOrderId, ProductId), -- Sammansatt primärnyckel
+    FOREIGN KEY (IncomingOrderId) REFERENCES IncomingOrder(Id),
     FOREIGN KEY (ProductId) REFERENCES Product(Id)
 );
 
@@ -41,8 +40,8 @@ CREATE TABLE OutgoingOrder -- för företaget ska kunna skapa automatiska ordrar
     FOREIGN KEY (ProductId) REFERENCES Product(Id)
 );
 
-GO -- batchseparator, körs av klienten och säkerställer att kommandona ovan faktiskt har körts. EJ en del av SQL
 
+GO -- batchseparator, körs av klienten och säkerställer att kommandona ovan faktiskt har körts. EJ en del av SQL
 
 INSERT INTO Customer (FullName, Address, Email)
 VALUES 
@@ -81,7 +80,7 @@ VALUES
 ('LED Desk Lamp', 70),
 ('Digital Drawing Tablet', 25);
 
-INSERT INTO Order (UserId, IsSent)
+INSERT INTO IncomingOrder (CustomerId, IsSent)
 VALUES
 (1, 0),
 (2, 1),
@@ -89,7 +88,7 @@ VALUES
 (4, 0),
 (1, 1); 
 
-INSERT INTO OrderDetail (OrderId, ProductId, Quantity)
+INSERT INTO OrderDetail (IncomingOrderId, ProductId, Quantity)
 VALUES
 (1, 2, 1),
 (1, 3, 3),

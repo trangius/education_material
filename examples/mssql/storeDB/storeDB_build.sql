@@ -1,4 +1,4 @@
-CREATE TABLE Users
+CREATE TABLE Customer
 (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     FullName NVARCHAR(255) NOT NULL,
@@ -6,23 +6,23 @@ CREATE TABLE Users
     Email NVARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE Products
+CREATE TABLE Product
 (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(255) NOT NULL,
     Quantity INT NOT NULL -- lagerstatus
 );
 
-CREATE TABLE Orders -- order som kunderna lägger
+CREATE TABLE Order -- order som kunderna lägger
 (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
-    UserId INT NOT NULL,
+    CustomerId INT NOT NULL,
     IsSent BIT DEFAULT 0,
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
 
-CREATE TABLE OrderDetails -- rader i en order
+CREATE TABLE OrderDetail -- rader i en order
 (
     OrderId INT NOT NULL,
     ProductId INT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE OrderDetails -- rader i en order
     FOREIGN KEY (ProductId) REFERENCES Products(Id)
 );
 
-CREATE TABLE OutgoingOrders -- för företaget ska kunna skapa automatiska ordrar till underleverantörer
+CREATE TABLE OutgoingOrder -- för företaget ska kunna skapa automatiska ordrar till underleverantörer
 (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
@@ -44,7 +44,7 @@ CREATE TABLE OutgoingOrders -- för företaget ska kunna skapa automatiska ordra
 GO -- batchseparator, körs av klienten och säkerställer att kommandona ovan faktiskt har körts. EJ en del av SQL
 
 
-INSERT INTO Users (FullName, Address, Email)
+INSERT INTO Customer (FullName, Address, Email)
 VALUES 
 ('John Doe', '123 Elm Street, Springfield', 'john.doe@example.com'),
 ('Jane Smith', '456 Oak Avenue, Metropolis', 'jane.smith@example.com'),
@@ -58,7 +58,7 @@ VALUES
 ('Helen Carter', '707 Willow Way, National City', 'helen.carter@example.com');
 
 
-INSERT INTO Products (Name, Quantity)
+INSERT INTO Product (Name, Quantity)
 VALUES 
 ('Laptop Pro 15"', 15),
 ('Wireless Mouse', 150),
@@ -81,7 +81,7 @@ VALUES
 ('LED Desk Lamp', 70),
 ('Digital Drawing Tablet', 25);
 
-INSERT INTO Orders (UserId, IsSent)
+INSERT INTO Order (UserId, IsSent)
 VALUES
 (1, 0),
 (2, 1),
@@ -89,7 +89,7 @@ VALUES
 (4, 0),
 (1, 1); 
 
-INSERT INTO OrderDetails (OrderId, ProductId, Quantity)
+INSERT INTO OrderDetail (OrderId, ProductId, Quantity)
 VALUES
 (1, 2, 1),
 (1, 3, 3),

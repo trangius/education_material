@@ -24,10 +24,7 @@ END;
 GO -- batchseparator, körs av klienten och säkerställer att kommandona ovan faktiskt har körts. EJ en del av SQL
 
 -- testa den:
-EXEC CreateUser 
-    @FullName = 'John Doe',
-    @Address = '123 Elm Street, Springfield',
-    @Email = 'john.doe@example.com';
+EXEC CreateUser 'John Doe', '123 Elm Street, Springfield', 'john.doe@example.com';
 
     EXEC CreateUser 
     @FullName = 'Kalle Anka',

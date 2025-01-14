@@ -8,25 +8,25 @@ class Server
     {
         TcpListener listener = new TcpListener(IPAddress.Any, 9999);
         listener.Start();
-        using (TcpClient client = listener.AcceptTcpClient())
-        using (NetworkStream ns = client.GetStream())
-        using (StreamReader reader = new StreamReader(ns, Encoding.UTF8))
-        using (StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true })
+        Console.WriteLine("Server is listening on port 9999...");
+        using TcpClient client = listener.AcceptTcpClient();
+        Console.WriteLine("Client connected.");
+        using NetworkStream ns = client.GetStream();
+        using StreamReader reader = new StreamReader(ns, Encoding.UTF8);
+        using StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true };
+        bool running = true;
+        while (running)
         {
-            bool running = true;
-            while (running)
+            string line = reader.ReadLine();
+            if (line == null) break;
+            if (line.StartsWith("msg "))
             {
-                string line = reader.ReadLine();
-                if (line == null) break;
-                if (line.StartsWith("msg "))
-                {
-                    string msg = line.Substring(4);
-                    Console.WriteLine(msg);
-                }
-                else if (line == "exit")
-                {
-                    running = false;
-                }
+                string msg = line.Substring(4);
+                Console.WriteLine(msg);
+            }
+            else if (line == "exit")
+            {
+                running = false;
             }
         }
         listener.Stop();

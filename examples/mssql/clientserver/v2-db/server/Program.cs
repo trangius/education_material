@@ -20,38 +20,37 @@ class Server
     {
         TcpListener listener = new TcpListener(IPAddress.Any, 9999);
         listener.Start();
-        
-        using (TcpClient client = listener.AcceptTcpClient())
-        using (NetworkStream ns = client.GetStream())
-        using (StreamReader reader = new StreamReader(ns, Encoding.UTF8))
-        using (StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true })
+        Console.WriteLine("Server is listening on port 9999...");
+        using TcpClient client = listener.AcceptTcpClient();
+        Console.WriteLine("Client connected...");
+        using NetworkStream ns = client.GetStream();
+        using StreamReader reader = new StreamReader(ns, Encoding.UTF8);
+        using StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true };
+        bool running = true;
+        while (running)
         {
-            bool running = true;
-            while (running)
+            string line = reader.ReadLine();
+            if (line == null)
+                break;
+            
+            if (line == "get_all_students")
             {
-                string line = reader.ReadLine();
-                if (line == null)
-                    break;
-                
-                if (line == "get_all_students")
+                string sql = "SELECT Name, Email, DateOfBirth FROM Students";
+                string connectionString = File.ReadAllText("connectionString.txt");
+                using IDbConnection conn = new SqlConnection(connectionString);
+                IEnumerable<Student> students = conn.Query<Student>(sql);
+                string message = "list_of_students\n";
+                foreach (Student student in students)
                 {
-                    string sql = "SELECT Name, Email, DateOfBirth FROM Students";
-                    string connectionString = File.ReadAllText("connectionString.txt");
-		            using IDbConnection conn = new SqlConnection(connectionString);
-                    IEnumerable<Student> students = conn.Query<Student>(sql);
-                    string message = "list_of_students\n";
-                    foreach (Student student in students)
-                    {
-                        message += $"s:{student.Name}:{student.Email}:{student.DateOfBirth}\n";
-                    }
-                    message += "end_of_student_list";
-                    writer.WriteLine(message);
-                    Console.WriteLine("message: " + message);
+                    message += $"s:{student.Name}:{student.Email}:{student.DateOfBirth}\n";
                 }
-                else if (line == "EXIT")
-                {
-                    running = false;
-                }
+                message += "end_of_student_list";
+                writer.WriteLine(message);
+                Console.WriteLine("message: " + message);
+            }
+            else if (line == "EXIT")
+            {
+                running = false;
             }
         }
         listener.Stop();

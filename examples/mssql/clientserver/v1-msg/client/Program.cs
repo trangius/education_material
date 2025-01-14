@@ -7,14 +7,13 @@ class Client
 {
     static void Main()
     {
-        using (TcpClient client = new TcpClient("127.0.0.1", 9999))
-        using (NetworkStream ns = client.GetStream())
-        using (StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true })
-        {
-            writer.WriteLine("msg hej");
-            writer.WriteLine("msg kalle");
-            writer.WriteLine("msg apa");
-            writer.WriteLine("exit");
-        }
+        using TcpClient client = new TcpClient("127.0.0.1", 9999);
+        using NetworkStream ns = client.GetStream();
+        using StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true };
+    
+        writer.WriteLine("msg hej");
+        writer.WriteLine("msg kalle");
+        writer.WriteLine("msg apa");
+        writer.WriteLine("exit");
     }
 }

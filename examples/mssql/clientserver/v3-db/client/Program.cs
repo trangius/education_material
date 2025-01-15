@@ -29,7 +29,10 @@ class Client
                     while ((response = reader.ReadLine()) != null)
                     {
                         if (response == "end_of_student_list")
+                        {
+                            Console.WriteLine("... no more students ...");
                             break;
+                        }
 
                         if (response.StartsWith("s:"))
                         {

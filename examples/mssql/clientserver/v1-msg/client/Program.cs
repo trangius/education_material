@@ -7,7 +7,7 @@ class Client
 {
     static void Main()
     {
-        using TcpClient client = new TcpClient("127.0.0.1", 9999);
+        using TcpClient client = new TcpClient("192.168.0.145", 9999);
         using NetworkStream ns = client.GetStream();
         using StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true };
     

@@ -13,20 +13,19 @@ class Server
         Console.WriteLine("Client connected.");
         using NetworkStream ns = client.GetStream();
         using StreamReader reader = new StreamReader(ns, Encoding.UTF8);
-        using StreamWriter writer = new StreamWriter(ns, Encoding.UTF8) { AutoFlush = true };
         bool running = true;
         while (running)
         {
             string line = reader.ReadLine();
-            if (line == null) break;
+            if (line == null)
+                break;
             if (line.StartsWith("msg "))
             {
-                string msg = line.Substring(4);
-                Console.WriteLine(msg);
+                string whatTheClientSays = line.Substring(4);
+                Console.WriteLine(whatTheClientSays);
             }
             else if (line == "exit")
             {
-                running = false;
             }
         }
         listener.Stop();

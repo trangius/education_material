@@ -35,20 +35,21 @@ class Server
             
             if (line == "get_all_students")
             {
-                string sql = "SELECT Name, Email, DateOfBirth FROM Students";
                 string connectionString = File.ReadAllText("connectionString.txt");
                 using IDbConnection conn = new SqlConnection(connectionString);
+                
+                string sql = "SELECT Name, Email, DateOfBirth FROM Students";
                 IEnumerable<Student> students = conn.Query<Student>(sql);
                 string message = "list_of_students\n";
                 foreach (Student student in students)
                 {
                     message += $"s:{student.Name}:{student.Email}:{student.DateOfBirth}\n";
                 }
-                message += "end_of_student_list";
+                message += "end_of_student_list\n";
                 writer.WriteLine(message);
                 Console.WriteLine("message: " + message);
             }
-            else if (line == "EXIT")
+            else if (line == "exit")
             {
                 running = false;
             }

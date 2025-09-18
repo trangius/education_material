@@ -60,10 +60,14 @@ cur.close()
 con.close()
 
 # ---- 6. Rita diagrammet med pyplot ----
-# osäker på hur pyplot fungerar? Kolla dessa exempel:
 plt.bar(months, revenues)
 plt.xticks(rotation=45, ha="right")
 plt.title("Revenue per month")
 plt.ylabel("Revenue")
 plt.tight_layout()
 plt.show()
+
+# osäker på hur pyplot fungerar? Kolla dessa exempel:
+# https://github.com/trangius/education_material/blob/main/examples/mysql/python/pyplot1.py
+# https://github.com/trangius/education_material/blob/main/examples/mysql/python/pyplot2.py
+# https://github.com/trangius/education_material/blob/main/examples/mysql/python/pyplot3.py

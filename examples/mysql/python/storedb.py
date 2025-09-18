@@ -1,14 +1,15 @@
+# ---- 0. Importera nödvändiga bibliotek  ----
 import mysql.connector # för databaskoppling
 import matplotlib.pyplot as plt # för diagram
 
-# ---- Konfiguration för databaskoppling ----
+# ---- 1. Konfiguration för databaskoppling ----
 DB_HOST = "localhost" # server
 DB_PORT = 1234                  # port
 DB_USER = "username"            # användarnamn
 DB_PASS = "password"       # lösenord
 DB_NAME = "clothingstore"        # databasenamn
 
-# ---- Koppla upp mot databasen ----
+# ---- 2. Koppla upp mot databasen ----
 con = mysql.connector.connect(
     host=DB_HOST,
     port=DB_PORT,
@@ -18,7 +19,7 @@ con = mysql.connector.connect(
     charset="utf8mb4",collation="utf8mb4_general_ci" # MariaDB/MySQL teckenuppsättning
 )
 
-# ---- Skapa en cursor och kör en query ----
+# ---- 3. Skapa en cursor och kör en query ----
 
 # tre citattecken för att kunna skriva över flera rader, här skapar vi en
 # query som sträcker över flera rader:
@@ -36,23 +37,30 @@ ORDER BY Month;
 cur = con.cursor()
 cur.execute(sql) # kör frågan
 
-# ---- Hämta resultat och skriv ut i en loop med print ----
+# ---- 4. Hämta resultat och skriv ut i en loop med print ----
 # lägg också till i en lista för att kunna rita diagrammet senare
 months = []
 revenues = []
 
 print("=== Revenue per month ===")
+
+
+# fetchall() hämtar alla rader i resultatet och ger en lista av tuples, t.ex:
+# [('2023-01', 1500.00), ('2023-02', 1750.50), ('2023-03', 1600.75), ...]
+#
+# för varje sånt element (med tuples) så skapar vi två variabler
+# month och revenue, som vi sen kan använda i loopen
 for (month, revenue) in cur.fetchall():
-    # Varje rad är en tuple (Month, Revenue)
-    print(month, "->", revenue)
+    print(month, "->", revenue) # print() behövs såklart inte om man bara vill ha plot
     months.append(month)
     revenues.append(revenue)
 
-# ---- Stäng kopplingen mot databasen ----
+# ---- 5. Stäng kopplingen mot databasen ----
 cur.close()
 con.close()
 
-# ---- Rita diagrammet med pyplot ----
+# ---- 6. Rita diagrammet med pyplot ----
+# osäker på hur pyplot fungerar? Kolla dessa exempel:
 plt.bar(months, revenues)
 plt.xticks(rotation=45, ha="right")
 plt.title("Revenue per month")

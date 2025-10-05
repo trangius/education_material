@@ -63,7 +63,7 @@ GROUP BY Course.Id, Course.Name;
 
 -- 9. Hämta en lista med alla studenter och deras respektive medelsnittsbetyg,
 -- sortera på snittet med med högst längst upp
-SELECT Student.Name, AVG(CAST(Enrollment.Grade AS FLOAT)) AS AverageGrade
+SELECT Student.Name, AVG(Enrollment.Grade) AS AverageGrade
 FROM Student
 JOIN Enrollment ON Student.Id = Enrollment.StudentId
 GROUP BY Student.Id, Student.Name
